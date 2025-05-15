@@ -12,6 +12,10 @@
                         <field name="message" class="mt-2" readonly="1" nolabel="1"/>
                     </div>
                 </sheet>
+                <footer>
+                    <!-- Botón invisible que reemplaza al guardar -->
+                    <button name="cancel" string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
             </form>
         </field>
     </record>

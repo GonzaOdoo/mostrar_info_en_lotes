@@ -15,20 +15,21 @@ class InfoWizard(models.TransientModel):
             res['batch_id'] = batch.id
             
             # Calcular resumen de productos
-            product_summary = defaultdict(float)
+            product_summary = defaultdict(lambda: {'count': 0, 'qty': 0.0})
             for line in batch.move_line_ids:
                 if line.product_id:
-                    product_summary[line.product_id] += line.quantity or 0
+                    product_summary[line.product_id]['count'] += 1
+                    product_summary[line.product_id]['qty'] += line.quantity or 0
             
             # Generar HTML del resumen
             html_lines = []
-            for product, qty in product_summary.items():
+            for product, data in product_summary.items():  # Cambiado qty por data
                 html_lines.append(f"""
                 <tr>
                     <td>{product.display_name}</td>
-                    <td>{product.default_code or ''}</td>
+                    <td style="text-align: right;">{data['count']}</td>
+                    <td style="text-align: right;">{data['qty']:.2f}</td>
                     <td>{product.uom_id.name}</td>
-                    <td style="text-align: right;">{qty}</td>
                 </tr>
                 """)
             
@@ -39,9 +40,9 @@ class InfoWizard(models.TransientModel):
                     <thead>
                         <tr>
                             <th>Producto</th>
-                            <th>Referencia</th>
-                            <th>Unidad</th>
+                            <th>Transferencias</th>
                             <th style="text-align: right;">Cantidad</th>
+                            <th>Unidad</th>
                         </tr>
                     </thead>
                     <tbody>

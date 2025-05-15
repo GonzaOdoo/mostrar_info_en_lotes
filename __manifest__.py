@@ -19,8 +19,8 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Stock',
+    'version': '1.0',
 
     # any module necessary for this one to work correctly
     'depends': ['stock_picking_batch'],
